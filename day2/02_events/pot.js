@@ -24,6 +24,14 @@ class Pot extends EventEmitter {
             this.emit('水开了');
         }
     }
+
+    turnOn() {
+        // ....
+    }
+
+    turnOff() {
+        // ...
+    }
 }
 
 // 导出一个对象

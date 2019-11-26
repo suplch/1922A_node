@@ -17,6 +17,7 @@
 ### 模块/包与commonjs 规范
 - 内置  (系统自带, node安装好就已经存在)
 - 第三方模块 (被安装在 node-modules 文件夹中)
+    + npm n:node,  p  program,  m: module
     + npm init
     + npm install 模块名 --save
     + npm uninstall 模块名
