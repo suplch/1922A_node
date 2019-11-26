@@ -1,4 +1,3 @@
-
 const fs = require('fs');
 // 读取 英语文件
 fs.readFile('../assets/english.txt', 'utf-8', function (err, data) {
@@ -6,14 +5,10 @@ fs.readFile('../assets/english.txt', 'utf-8', function (err, data) {
         console.log(err);
         return;
     }
-
     console.log(typeof data);
-
-    // string split 用来分格字符串, 返回 一个数组
+    // string split 用来分格字符串, 返回 一个数组  /\W+/  表示非单词
     const words = data.split(/\W+/);
-
     //console.log(words);
-
     // 创建 一个 map 对象 用来统计 每个单词出现的数量
     let map = new Map();
     for (word of words) {
@@ -24,7 +19,6 @@ fs.readFile('../assets/english.txt', 'utf-8', function (err, data) {
         if (!map.has(word)) {
             map.set(word, 0);
         }
-
         // 取出 map 里面原先保持 的 单词对应的 数量
         let count = map.get(word);
         // 把数量 加一
@@ -34,10 +28,8 @@ fs.readFile('../assets/english.txt', 'utf-8', function (err, data) {
         //console.log(word)
     }
     //console.log(map)
-
     // 返回 map 里边所有 属性名称
     let keys = map.keys();
-
     // 创造一个 对象数组 用来 保持 统计好的单词 数量
     let result = [];
     for (key of keys) {
@@ -58,17 +50,13 @@ fs.readFile('../assets/english.txt', 'utf-8', function (err, data) {
         return b.count - a.count
         //return b.word.length - a.word.length;
     });
-
     console.log(result);
     // 将 对象数组 转换 为 字符串数则
     let newResult = result.map(function (item) {
         return item.word + '        ' + item.count
     });
-
     console.log(newResult)
-
     let txt = newResult.join('\n')
-
     console.log(newResult);
 
     fs.writeFile('./counter.txt', txt, function (err) {
@@ -78,6 +66,4 @@ fs.readFile('../assets/english.txt', 'utf-8', function (err, data) {
         }
         console.log('统计完毕😃')
     });
-
-
 });
