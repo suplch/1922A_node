@@ -32,6 +32,7 @@ module.exports = {
         let pot = new Pot();
 
         setInterval(function () {
+            // 每隔一秒 就 加热一次
             pot.incrementTemperature();
         }, 1000);
 
