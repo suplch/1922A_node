@@ -4,6 +4,7 @@
 * */
 // 引入 events node 原生模块, 用来实现 事件处理相关的逻辑
 const EventEmitter = require('events');
+// 继承  EventEmitter 方法功能
 class Pot extends EventEmitter {
     constructor() {
         super();
@@ -25,6 +26,7 @@ class Pot extends EventEmitter {
     }
 }
 
+// 导出一个对象
 module.exports = {
     createPot() {
         let pot = new Pot();

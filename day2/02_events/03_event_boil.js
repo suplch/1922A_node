@@ -1,6 +1,7 @@
 /*
 *  一个小白 程序猿
 * */
+// 导入 一个 pot 对象
 const pot = require('./pot');
 
 let pot1 = pot.createPot();
