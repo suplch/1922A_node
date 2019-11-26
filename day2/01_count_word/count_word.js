@@ -1,6 +1,6 @@
 
 const fs = require('fs');
-
+// 读取 英语文件
 fs.readFile('../assets/english.txt', 'utf-8', function (err, data) {
     if (err) {
         console.log(err);
@@ -14,6 +14,7 @@ fs.readFile('../assets/english.txt', 'utf-8', function (err, data) {
 
     //console.log(words);
 
+    // 创建 一个 map 对象 用来统计 每个单词出现的数量
     let map = new Map();
     for (word of words) {
         if (!word) {
@@ -30,15 +31,14 @@ fs.readFile('../assets/english.txt', 'utf-8', function (err, data) {
         count = count + 1;
         // 把 数量 放回去
         map.set(word, count);
-
         //console.log(word)
     }
-
     //console.log(map)
 
     // 返回 map 里边所有 属性名称
     let keys = map.keys();
 
+    // 创造一个 对象数组 用来 保持 统计好的单词 数量
     let result = [];
     for (key of keys) {
         //console.log(`${key} : ${map.get(key)}`)
@@ -51,7 +51,7 @@ fs.readFile('../assets/english.txt', 'utf-8', function (err, data) {
     }
 
     console.log(result);
-    console.log('========================')
+    console.log('========================');
     // sort 是数组的一个 方法 用来 排序数组, 她的内部已经实现了排序算法,
     // 他提供了一个 回调函数, 让我们程序猿,来决定 具体的排序规则
     result.sort(function (a, b) {
@@ -60,7 +60,7 @@ fs.readFile('../assets/english.txt', 'utf-8', function (err, data) {
     });
 
     console.log(result);
-
+    // 将 对象数组 转换 为 字符串数则
     let newResult = result.map(function (item) {
         return item.word + '        ' + item.count
     });
@@ -70,7 +70,6 @@ fs.readFile('../assets/english.txt', 'utf-8', function (err, data) {
     let txt = newResult.join('\n')
 
     console.log(newResult);
-
 
     fs.writeFile('./counter.txt', txt, function (err) {
         if (err) {
