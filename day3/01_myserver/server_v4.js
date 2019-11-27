@@ -1,6 +1,15 @@
 // 引入 http 模块, 用来创建 web 服务器
 const http = require('http');
 const fs = require('fs');
+const path = require('path');
+
+const MIME = {
+    '.js': 'application/javascript; charset=utf-8',
+    '.html': 'text/html; charset=utf-8',
+    '.css': 'text/css; charset=utf-8',
+    '.jpg': 'image/jpeg',
+    '.png': 'image/png',
+};
 
 // createServer 用来创建web服务器
 // request 表示一个客户端 浏览器 的请求
@@ -8,15 +17,13 @@ const fs = require('fs');
 // 当一个 浏览器的请求 上来以后, 服务器会自动调用 回调函数
 const server = http.createServer(function (request, response) {
     console.log('一个客户端请求 来了');
-    // 将 hello world 这个字符串, 写入响应流
     // request.url 就是 网址 后面根的 请求的具体地址 路径
     console.log(request.url);
-
     let filepath = './static' + request.url;
-
     // existsSync 函数用来判断 一个文件是否存在
     if (fs.existsSync(filepath)) {
-        fs.readFile(filepath, 'utf-8', function (err, data) {
+        let extname = path.extname(filepath);
+        fs.readFile(filepath, function (err, data) {
             if (err) {
                 // 万一出错了, 给用户 一个友好的提示
                 response.writeHead(200, {
@@ -26,7 +33,12 @@ const server = http.createServer(function (request, response) {
                 response.end();
                 return;
             }
+            // 动态的获取 对应文件 可 mime 表达方式
+            let mimeString = MIME[extname];
             // 将读取到的文件内容 响应给 浏览器
+            response.writeHead(200, {
+                "Content-Type": mimeString,
+            });
             response.write(data);
             response.end();
         })
@@ -37,8 +49,6 @@ const server = http.createServer(function (request, response) {
         response.write('网页不存在 404');
         response.end();
     }
-
-
 });
 
 // 监听 5000 端口号
