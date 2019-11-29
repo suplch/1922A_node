@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- axios.min.js 是一个 ajax 库, 用来 方便的访问后端 的服务 -->
+        <script src="./js/axios.min.js"></script>
+
+        <script>
+            function getUserInfo() {
+                // axios.get 方法 发起 ajax get 请求
+                axios.get('/userinfo').then(function(result) {
+                    console.log(result);
+                    // result.data 表示 后端返回的 json 数据
+                    console.log(result.data);
+                    let spanEl = document.getElementById('user');
+                    spanEl.innerHTML = `${result.data.name}, ${result.data.age}, ${result.data.sex}`
+                })
+
+            }
+
+            function getProductTypes() {
+                axios.get('/get_product_type').then(function(result) {
+                    console.log(result);
+                    // 返回 后端 的产品 数则
+                    const productTypes = result.data;
+                    // 获取 ul 元素对象
+                    const ulEl = document.getElementById('product_type');
+                    // 循环 遍历 数组元素
+                    for (let pType of productTypes) {
+                        // 针对 每一个 数组元素 创建一个 li 标签
+                        let liEl = document.createElement('li');
+                        // li 标签的 内容 为 我们的数据
+                        liEl.innerHTML = pType.name;
+                        // li 元素 添加到 ul 标签中
+                        ulEl.appendChild(liEl);
+                    }
+                })
+            }
+        </script>
+    </head>
+    <body>
+        Hello <button onclick="getUserInfo()" >获取用户信息</button> <span id="user"></span>
+        <hr/>
+
+        <button onclick="getProductTypes()">获取产品类型</button>
+        <ul id="product_type">
+            
+        </ul>
+    </body>
+</html>
