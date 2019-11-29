@@ -7,13 +7,13 @@ mongoose.connect('mongodb://localhost/store');
 const ProductTypeSchema = mongoose.Schema({
     name: String
 });
-
+// 产品类对象
 const ProductType = mongoose.model('ProductType', ProductTypeSchema);
 
 
 // 静态资源路径
 const publicRoot = path.join(__dirname, 'public')
-
+// 静态资源中间件
 const staticMiddleware = express.static(publicRoot);
 
 const app = express();
