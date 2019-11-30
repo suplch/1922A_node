@@ -3,7 +3,7 @@ const http = require('http');
 
 
 
-
+// 模拟 express框架
 function my_express() {
 
     let getMap = new Map();
@@ -17,6 +17,9 @@ function my_express() {
                 response.write(argv);
                 response.end();
             } else if (typeof argv === 'object') {
+                response.writeHead(200, {
+                    'Content-Type': 'application/json; charset=utf-8'
+                })
                 response.write(JSON.stringify(argv));
                 response.end();
             }
@@ -32,10 +35,10 @@ function my_express() {
     });
 
     return {
-        get: function(pathString, callback) {
+        get (pathString, callback) {
             getMap.set(pathString, callback);
         },
-        post: function(pathString, callback) {
+        post(pathString, callback) {
             postMap.set(pathString, callback);
         },
         listen(port, callback) {
